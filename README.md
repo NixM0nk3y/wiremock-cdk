@@ -1,8 +1,12 @@
-# Welcome to your CDK TypeScript project!
+# AWS CDK Wiremock lambda
 
-This is a blank project for TypeScript development with CDK.
+CDK Implementation of a serverless wiremock lambda.
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+Building on the work of https://github.com/saurabh73/aws-serverless-wiremock-server
+
+# License
+
+MIT
 
 ## Useful commands
 
