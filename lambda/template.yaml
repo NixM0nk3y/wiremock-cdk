@@ -1,0 +1,43 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  wiremock-app
+
+  SAM Template for wiremock-app
+
+Globals:
+  Function:
+    Timeout: 20
+
+Resources:
+  WireMockFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: WireMock
+      Handler: wiremock.StreamLambdaHandler::handleRequest
+      Runtime: java11
+      MemorySize: 512
+      Environment:
+        Variables:
+          PARAM1: VALUE
+      Events:
+        WireMock:
+          Type: HttpApi
+          Properties:
+            Path: /{proxy+}
+            Method: any
+            TimeoutInMillis: 15000
+            PayloadFormatVersion: "2.0"
+            RouteSettings:
+              ThrottlingBurstLimit: 600
+
+Outputs:
+  WireMockApi:
+    Description: "API Gateway endpoint URL for Prod stage for Hello World function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
+  WireMockFunction:
+    Description: "Hello World Lambda Function ARN"
+    Value: !GetAtt WireMockFunction.Arn
+  WireMockFunctionIamRole:
+    Description: "Implicit IAM Role created for Hello World function"
+    Value: !GetAtt WireMockFunctionRole.Arn
