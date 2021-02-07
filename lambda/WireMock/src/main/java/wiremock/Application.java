@@ -10,8 +10,9 @@ import org.springframework.web.servlet.HandlerAdapter;
 import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
+import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 
-
+@EnableZuulProxy
 @SpringBootApplication
 @Import({ WireMockController.class })
 public class Application {

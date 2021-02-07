@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: wiremock-lambda
+
+zuul:
+  ignoredPatterns: /__admin/**
+  routes:
+    mappings:
+      path: /mappings/**
+      url: forward:/mappings
+    mockping:
+      path: /mockping/**
+      url: forward:/mockping
+    get:
+      path: /get/**
+      url: http://httpbin.org/get
+    status:
+      path: /status/**
+      url: http://httpbin.org/status
+    links:
+      path: /links/**
+      url: http://httpbin.org/links
+    images:
+      path: /image/**
+      url: http://httpbin.org/image
+    wiremock:
+      path: /**
+      url: http://localhost:9090
+
+ribbon:
+  eureka:
+    enabled: false

@@ -17,11 +17,17 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-
+import org.springframework.web.servlet.HandlerMapping;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpStatusCodeException;
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @EnableWebMvc
@@ -34,24 +40,22 @@ public class WireMockController {
     @Autowired
     public WireMockController(WireMockServer mockServer, RestTemplate restTemplate) {
         this.mockServer = mockServer;
+        this.mockServer.start();
         this.restTemplate = restTemplate;
     }
 
     @GetMapping(path = "/mappings")
     public ObjectNode getWireMockMappings() {
-        mockServer.start();
+        
         ResponseEntity<ObjectNode> responseEntity =
                 restTemplate.getForEntity(WIRE_MOCK_BASE_URL +"/__admin/mappings", ObjectNode.class);
-        mockServer.stop();
         return responseEntity.getBody();
     }
 
     @GetMapping(path = "/mockping")
     public Ping pingWireMock() {
-        mockServer.start();
         ResponseEntity<Ping> responseEntity =
                 restTemplate.getForEntity(WIRE_MOCK_BASE_URL + "/mockping", Ping.class);
-        mockServer.stop();
         return responseEntity.getBody();
     }
 }

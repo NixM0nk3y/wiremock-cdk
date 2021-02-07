@@ -1,0 +1,33 @@
+{
+    "mappings": [
+        {
+            "request": {
+                "url": "/test/wibble",
+                "method": "GET"
+            },
+            "response": {
+                "status": 200,
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "body": "{\"reponse\":\"wibble\"}"
+            }
+        },
+        {
+            "request": {
+                "url": "/test/wobble",
+                "method": "GET"
+            },
+            "response": {
+                "status": 200,
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "body": "{\"reponse\":\"wobble\"}"
+            }
+        }
+    ],
+    "meta": {
+        "total": 2
+    }
+}
